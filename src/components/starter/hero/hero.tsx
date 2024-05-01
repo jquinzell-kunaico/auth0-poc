@@ -1,8 +1,10 @@
 import { component$ } from "@builder.io/qwik";
 import styles from "./hero.module.css";
 import ImgThunder from "../../../media/thunder.png?jsx";
+import { useAuthSession } from "~/routes/plugin@auth";
 
 export default component$(() => {
+  const session = useAuthSession()
   return (
     <div class={["container", styles.hero]}>
       <ImgThunder class={styles["hero-image"]} alt="Image thunder" />
@@ -11,6 +13,7 @@ export default component$(() => {
         <br />
         to have <span class="highlight">you</span> here
       </h1>
+      {session.value && <p>{ session.value.user?.name}</p>}
       <p>Have fun building your App with Qwik.</p>
       <div class={styles["button-group"]}>
         <button
